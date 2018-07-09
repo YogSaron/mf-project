@@ -1,4 +1,5 @@
 package com.company.project.web;
+
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.model.SysCustomer;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +27,9 @@ public class SysCustomerController {
 
     @PostMapping("/add")
     public Result add(SysCustomer sysCustomer) {
+        Timestamp t = new Timestamp(new Date().getTime());
+        sysCustomer.setCreateTime(t);
+        System.out.println(sysCustomer.getCreateTime());
         sysCustomerService.save(sysCustomer);
         return ResultGenerator.genSuccessResult();
     }
