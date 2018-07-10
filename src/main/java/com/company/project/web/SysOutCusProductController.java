@@ -1,14 +1,13 @@
 package com.company.project.web;
+
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.model.SysOutCusProduct;
 import com.company.project.service.SysOutCusProductService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -52,5 +51,13 @@ public class SysOutCusProductController {
         List<SysOutCusProduct> list = sysOutCusProductService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @GetMapping("/listByParentId")
+    public Result listByParentId(@RequestParam Integer parentId){
+        Condition condition = new Condition(SysOutCusProduct.class);
+        condition.createCriteria().andEqualTo("parentId", parentId);
+        List<SysOutCusProduct> list = sysOutCusProductService.findByCondition(condition);
+        return ResultGenerator.genSuccessResult(list);
     }
 }
