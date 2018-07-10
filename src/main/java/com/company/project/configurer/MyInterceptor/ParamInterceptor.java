@@ -1,5 +1,9 @@
 package com.company.project.configurer.MyInterceptor;
 
+import com.company.project.cache.UserLoginCache;
+import com.company.project.core.ResultGenerator;
+import com.company.project.model.SysUser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,7 +17,24 @@ public class ParamInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String token = httpServletRequest.getHeader("X-Token");
-        return false;
+        httpServletResponse.setContentType("application/json;charset=UTF-8");
+
+        if ( StringUtils.isEmpty(token) ) {
+            ResultGenerator.genOutResult("token过期");
+            return false;
+        }
+
+        SysUser sysUser = UserLoginCache.getUser(token);
+
+        if (sysUser==null) {
+            ResultGenerator.genOutResult("token过期");
+            return false;
+        }
+
+        //成功
+        httpServletRequest.setAttribute("token", token);
+        httpServletRequest.setAttribute("user", sysUser);
+        return true;
     }
 
     @Override

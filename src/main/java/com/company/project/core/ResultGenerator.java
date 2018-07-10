@@ -24,4 +24,10 @@ public class ResultGenerator {
                 .setCode(ResultCode.FAIL)
                 .setMessage(message);
     }
+
+    public static Result genOutResult(String message) {
+        return new Result()
+                .setCode(ResultCode.NOTOKEN)
+                .setMessage(message);
+    }
 }
