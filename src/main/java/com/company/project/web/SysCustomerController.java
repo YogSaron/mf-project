@@ -6,10 +6,8 @@ import com.company.project.model.SysCustomer;
 import com.company.project.service.SysCustomerService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -58,5 +56,14 @@ public class SysCustomerController {
         List<SysCustomer> list = sysCustomerService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @GetMapping("/type/list")
+    public  Result listByType(Integer type) {
+        Condition condition = new Condition(SysCustomer.class);
+        condition.createCriteria().andEqualTo("type",type);
+        condition.setOrderByClause("customer_name ASC");
+        List<SysCustomer> list = sysCustomerService.findByCondition(condition);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

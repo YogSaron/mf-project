@@ -53,6 +53,8 @@ public class SysOutCusProductController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
+
+
     @GetMapping("/listByParentId")
     public Result listByParentId(@RequestParam Integer parentId){
         Condition condition = new Condition(SysOutCusProduct.class);
