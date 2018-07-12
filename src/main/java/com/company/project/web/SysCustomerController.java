@@ -27,7 +27,6 @@ public class SysCustomerController {
     public Result add(SysCustomer sysCustomer) {
         Timestamp t = new Timestamp(new Date().getTime());
         sysCustomer.setCreateTime(t);
-        System.out.println(sysCustomer.getCreateTime());
         sysCustomerService.save(sysCustomer);
         return ResultGenerator.genSuccessResult();
     }

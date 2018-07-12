@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +26,9 @@ public class SysOutOrderController {
 
     @PostMapping("/add")
     public Result add(SysOutOrder sysOutOrder) {
+        Short flag = 1;
+        sysOutOrder.setFlag(flag);
+        sysOutOrder.setOrderDate(new Timestamp(new Date().getTime()));
         sysOutOrderService.save(sysOutOrder);
         return ResultGenerator.genSuccessResult();
     }
