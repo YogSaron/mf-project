@@ -1,7 +1,10 @@
 package com.company.project.web;
+
+import com.alibaba.fastjson.JSON;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.model.SysOutOrder;
+import com.company.project.model.SysOutOrderDetail;
 import com.company.project.service.SysOutOrderService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,10 +29,19 @@ public class SysOutOrderController {
 
     @PostMapping("/add")
     public Result add(SysOutOrder sysOutOrder) {
+        sysOutOrderService.save(sysOutOrder);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    //保存订单和订单详情
+    @PostMapping("/orderSave")
+    public Result orderSave(String goodsList, SysOutOrder sysOutOrder) {
+        System.out.println(goodsList+sysOutOrder);
         Short flag = 1;
         sysOutOrder.setFlag(flag);
         sysOutOrder.setOrderDate(new Timestamp(new Date().getTime()));
-        sysOutOrderService.save(sysOutOrder);
+        List<SysOutOrderDetail> list = JSON.parseArray(goodsList, SysOutOrderDetail.class);
+        sysOutOrderService.orderSave(sysOutOrder,list);
         return ResultGenerator.genSuccessResult();
     }
 
