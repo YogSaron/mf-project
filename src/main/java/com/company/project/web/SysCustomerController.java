@@ -39,6 +39,8 @@ public class SysCustomerController {
 
     @PostMapping("/update")
     public Result update(SysCustomer sysCustomer) {
+        Timestamp t = new Timestamp(new Date().getTime());
+        sysCustomer.setCreateTime(t);
         sysCustomerService.update(sysCustomer);
         return ResultGenerator.genSuccessResult();
     }

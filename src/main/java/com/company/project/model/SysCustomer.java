@@ -1,7 +1,7 @@
 package com.company.project.model;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "sys_customer")
 public class SysCustomer {
@@ -19,6 +19,7 @@ public class SysCustomer {
     @Column(name = "create_time")
     private Date createTime;
 
+    private String mobile;
     /**
      * @return id
      */
@@ -87,5 +88,13 @@ public class SysCustomer {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

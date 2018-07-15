@@ -14,4 +14,17 @@
     <result column="aggregate" jdbcType="DECIMAL" property="aggregate" />
     <result column="backup1" jdbcType="VARCHAR" property="backup1" />
   </resultMap>
+
+  <select id="getPayable" resultType="DECIMAL">
+    select SUM(case when flag=2 then total_amount*(-1) else total_amount end ) from sys_out_order
+    <where>
+      <if test="startDate != null and startDate.trim() != ''">
+          `delivery_date` <![CDATA[ > ]]> #{startDate,jdbcType=DATE}
+      </if>
+      <if test="endDate != null and endDate.trim() != ''">
+          `delivery_date` <![CDATA[ <= ]]> #{endDate,jdbcType=DATE}
+      </if>
+      and id
+    </where>
+  </select>
 </mapper>
