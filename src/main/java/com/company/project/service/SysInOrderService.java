@@ -14,4 +14,6 @@ public interface SysInOrderService extends Service<SysInOrder> {
     public void orderSave(SysInOrder sysInOrder, List<SysInOrderDetail> list);
 
     public void orderUpdate(SysInOrder sysInOrder, List<SysInOrderDetail> list);
+
+    public void deleteOneEntireOrder(Integer id);
 }

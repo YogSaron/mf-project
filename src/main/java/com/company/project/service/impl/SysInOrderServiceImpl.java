@@ -52,4 +52,12 @@ public class SysInOrderServiceImpl extends AbstractService<SysInOrder> implement
         }
         sysInOrderDetailService.save(list);
     }
+
+    @Override
+    public void deleteOneEntireOrder(Integer id) {
+        deleteById(id);
+        Condition condition = new Condition(SysInOrderDetail.class);
+        condition.createCriteria().andEqualTo("orderId",id);
+        sysInOrderDetailMapper.deleteByCondition(condition);
+    }
 }

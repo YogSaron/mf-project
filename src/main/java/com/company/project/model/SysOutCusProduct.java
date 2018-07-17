@@ -1,7 +1,7 @@
 package com.company.project.model;
 
-import java.math.BigDecimal;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Table(name = "sys_out_cus_product")
 public class SysOutCusProduct {
@@ -19,6 +19,9 @@ public class SysOutCusProduct {
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
 
+
+    @Column(name = "material_type")
+    private String materialType;
     /**
      * @return id
      */
@@ -87,5 +90,13 @@ public class SysOutCusProduct {
      */
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getMaterialType() {
+        return materialType;
+    }
+
+    public void setMaterialType(String materialType) {
+        this.materialType = materialType;
     }
 }

@@ -7,6 +7,7 @@ import com.company.project.model.SysOutOrder;
 import com.company.project.model.SysOutOrderDetail;
 import com.company.project.service.SysOutOrderDetailService;
 import com.company.project.service.SysOutOrderService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
@@ -65,13 +66,22 @@ public class SysOutOrderServiceImpl extends AbstractService<SysOutOrder> impleme
     }
 
     @Override
-    public BigDecimal getPayable(String sd, String ed) {
+    public BigDecimal getPayable(String sd, String ed, Integer customerId) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         BigDecimal tl = new BigDecimal(0);
+        Date startDate = null;
+        Date endDate = null;
+        if (customerId < 0) {
+            customerId = null;
+        }
         try {
-            Date startDate = format.parse(sd);
-            Date endDate = format.parse(ed);
-            tl = sysOutOrderMapper.getPayable(startDate,endDate);
+            if(StringUtils.isNotBlank(sd)){
+                startDate= format.parse(sd);
+            }
+            if(StringUtils.isNotBlank(ed)){
+                endDate = format.parse(ed);
+            }
+            tl = sysOutOrderMapper.getPayable(startDate,endDate,customerId);
         } catch (ParseException e) {
             e.printStackTrace();
         }

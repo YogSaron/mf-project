@@ -10,5 +10,6 @@
     <result column="model" jdbcType="VARCHAR" property="model" />
     <result column="packaging" jdbcType="VARCHAR" property="packaging" />
     <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="material_type" jdbcType="VARCHAR" property="materialType" />
   </resultMap>
 </mapper>

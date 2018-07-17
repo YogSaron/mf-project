@@ -1,4 +1,5 @@
 package com.company.project.service;
+
 import com.company.project.core.Service;
 import com.company.project.model.SysOutOrder;
 import com.company.project.model.SysOutOrderDetail;
@@ -16,6 +17,6 @@ public interface SysOutOrderService extends Service<SysOutOrder> {
 
     public void deleteOneEntireOrder(Integer id);//根据id 删除订单以及订单详情
 
-    public BigDecimal getPayable(String startDate, String endDate);
+    public BigDecimal getPayable(String startDate, String endDate,Integer customerId);
 //    public OrderBean getEntireOrder(Integer id);//根据id找到整个order
 }

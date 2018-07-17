@@ -74,6 +74,9 @@ public class SysInOrderController {
         SysInOrder order = JSON.parseObject(sysInOrder, SysInOrder.class);
         Short flag = 1;
         order.setFlag(flag);
+        String str = order.getMaterialType();
+        String origi = str.substring(1,str.length()-1).replace("\"","");
+        order.setMaterialType(origi);
         order.setOrderDate(new Timestamp(new Date().getTime()));
         List<SysInOrderDetail> list = JSON.parseArray(goodsList, SysInOrderDetail.class);
         sysInOrderService.orderSave(order,list);
@@ -133,5 +136,12 @@ public class SysInOrderController {
         orderBean.setGoodsList(JSON.toJSONString(list));
         orderBean.setSysOutOrder(JSON.toJSONString(sysInOrder));
         return ResultGenerator.genSuccessResult(orderBean);
+    }
+
+    //删除订单所有数据
+    @PostMapping("/deleteOneOrder")
+    public Result deleteOneOrder(@RequestParam Integer id) {
+        sysInOrderService.deleteOneEntireOrder(id);
+        return ResultGenerator.genSuccessResult();
     }
 }

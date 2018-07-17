@@ -16,6 +16,7 @@ import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -148,5 +149,11 @@ public class SysOutOrderController {
         List<SysOutOrder> list = sysOutOrderService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PostMapping("/getSumAmount")
+    public Result getSum(String startDate,String endDate,Integer customerId) {
+        BigDecimal bg = sysOutOrderService.getPayable(startDate,endDate,customerId);
+        return ResultGenerator.genSuccessResult(bg);
     }
 }
