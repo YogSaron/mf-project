@@ -151,6 +151,7 @@ public class SysOutOrderController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
+
     @PostMapping("/getSumAmount")
     public Result getSum(String startDate,String endDate,Integer customerId) {
         BigDecimal bg = sysOutOrderService.getPayable(startDate,endDate,customerId);

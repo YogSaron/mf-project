@@ -1,15 +1,14 @@
 import com.company.project.service.SysOutOrderService;
+import com.conpany.project.Tester;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 
 /**
  * Created by Logan on 2018/7/15.
  */
-@SpringBootTest
-public class NewTest {
+public class NewTest extends Tester {
     @Autowired
     private SysOutOrderService sysOutOrderService;
 
