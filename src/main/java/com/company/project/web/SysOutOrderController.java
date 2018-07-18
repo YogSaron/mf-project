@@ -103,7 +103,7 @@ public class SysOutOrderController {
         List<SysOutOrderDetail> list = sysOutOrderDetailService.findByCondition(condition);
         OrderBean orderBean = new OrderBean();
         orderBean.setGoodsList(JSON.toJSONString(list));
-        orderBean.setSysOutOrder(JSON.toJSONString(sysOutOrder));
+        orderBean.setOrder(JSON.toJSONString(sysOutOrder));
         return ResultGenerator.genSuccessResult(orderBean);
     }
 

@@ -5,8 +5,6 @@ import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.model.SysInOrder;
 import com.company.project.model.SysInOrderDetail;
-import com.company.project.model.SysOutOrder;
-import com.company.project.model.SysOutOrderDetail;
 import com.company.project.service.SysInOrderDetailService;
 import com.company.project.service.SysInOrderService;
 import com.company.project.utils.beans.OrderBean;
@@ -18,6 +16,7 @@ import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,7 +98,7 @@ public class SysInOrderController {
     public Result detailByCustomerId(@RequestParam Integer customerId,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,String flag, String startDate,String endDate){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         PageHelper.startPage(page, size);
-        Condition condition = new Condition(SysOutOrder.class);
+        Condition condition = new Condition(SysInOrder.class);
         Example.Criteria criteria = condition.createCriteria();
         if(customerId >= 0){
             criteria.andEqualTo("customerId",customerId);
@@ -129,12 +128,12 @@ public class SysInOrderController {
     @GetMapping("/detailById")
     public Result detailById(@RequestParam Integer id) {
         SysInOrder sysInOrder = sysInOrderService.findById(id);
-        Condition condition = new Condition(SysOutOrderDetail.class);
+        Condition condition = new Condition(SysInOrderDetail.class);
         condition.createCriteria().andEqualTo("orderId",id);
         List<SysInOrderDetail> list = sysInOrderDetailService.findByCondition(condition);
         OrderBean orderBean = new OrderBean();
         orderBean.setGoodsList(JSON.toJSONString(list));
-        orderBean.setSysOutOrder(JSON.toJSONString(sysInOrder));
+        orderBean.setOrder(JSON.toJSONString(sysInOrder));
         return ResultGenerator.genSuccessResult(orderBean);
     }
 
@@ -142,6 +141,23 @@ public class SysInOrderController {
     @PostMapping("/deleteOneOrder")
     public Result deleteOneOrder(@RequestParam Integer id) {
         sysInOrderService.deleteOneEntireOrder(id);
+        return ResultGenerator.genSuccessResult();
+    }
+
+
+    @PostMapping("/getSumAmount")
+    public Result getSum(String startDate,String endDate,Integer customerId) {
+        BigDecimal bg = sysInOrderService.getPayable(startDate,endDate,customerId);
+        return ResultGenerator.genSuccessResult(bg);
+    }
+
+    //出货付款
+    @PostMapping("/paymentSave")
+    public Result paymentSave(SysInOrder sysInOrder) {
+        Short flag = 2;
+        sysInOrder.setFlag(flag);
+        sysInOrder.setOrderDate(new Timestamp(new Date().getTime()));
+        sysInOrderService.save(sysInOrder);
         return ResultGenerator.genSuccessResult();
     }
 }

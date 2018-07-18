@@ -9,4 +9,6 @@ import java.util.Date;
 
 public interface SysOutOrderMapper extends Mapper<SysOutOrder> {
     public BigDecimal getPayable(@Param("startDate")Date startDate, @Param("endDate")Date endDate,@Param("customerId")Integer customerId);
+
+//    public Map sumByMonth()
 }

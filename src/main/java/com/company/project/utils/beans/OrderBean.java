@@ -1,12 +1,14 @@
 package com.company.project.utils.beans;
 
+import java.io.Serializable;
+
 /**
  * Created by Logan on 2018/7/13.
  */
-public class OrderBean
+public class OrderBean implements Serializable
 {
     private String goodsList;
-    private String sysOutOrder;
+    private String Order;
 
     public String getGoodsList() {
         return goodsList;
@@ -16,11 +18,11 @@ public class OrderBean
         this.goodsList = goodsList;
     }
 
-    public String getSysOutOrder() {
-        return sysOutOrder;
+    public String getOrder() {
+        return Order;
     }
 
-    public void setSysOutOrder(String sysOutOrder) {
-        this.sysOutOrder = sysOutOrder;
+    public void setOrder(String order) {
+        Order = order;
     }
 }

@@ -1,8 +1,10 @@
 package com.company.project.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_in_order")
 public class SysInOrder {
@@ -20,6 +22,7 @@ public class SysInOrder {
     private String receiptAddress;
 
     @Column(name = "receipt_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date receiptDate;
 
     @Column(name = "material_type")

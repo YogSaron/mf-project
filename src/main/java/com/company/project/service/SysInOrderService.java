@@ -3,6 +3,7 @@ import com.company.project.model.SysInOrder;
 import com.company.project.core.Service;
 import com.company.project.model.SysInOrderDetail;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -16,4 +17,6 @@ public interface SysInOrderService extends Service<SysInOrder> {
     public void orderUpdate(SysInOrder sysInOrder, List<SysInOrderDetail> list);
 
     public void deleteOneEntireOrder(Integer id);
+
+    public BigDecimal getPayable(String startDate,String endDate,Integer customerId);
 }

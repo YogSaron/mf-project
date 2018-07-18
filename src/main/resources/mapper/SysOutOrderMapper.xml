@@ -20,7 +20,6 @@
   <select id="getPayable" resultType="DECIMAL">
     select SUM(case when flag=2 then total_amount*(-1) else total_amount end ) from sys_out_order
     <where>
-<<<<<<< Updated upstream
       <if test="startDate != null">
        and `delivery_date` <![CDATA[ > ]]> #{startDate}
       </if>
@@ -30,15 +29,15 @@
       <if test="customerId != null">
         and `customer_id` = #{customerId}
       </if>
-      and id
-=======
-      <if test="startDate != null ">
-        delivery_date <![CDATA[ > ]]> #{startDate} and
-      </if>
-      <if test="endDate != null ">
-        delivery_date <![CDATA[ <= ]]> #{endDate}
-      </if>
->>>>>>> Stashed changes
     </where>
+  </select>
+  <select id="sumByMonth" resultType="map">
+   SELECT MONTH(delivery_date) as mon, SUM(total_amount) from sys_out_order
+    <where>
+    <if test="customerId != null">
+      and `delivery_date` = #{customerId}
+    </if>
+    </where>
+   GROUP BY mon
   </select>
 </mapper>

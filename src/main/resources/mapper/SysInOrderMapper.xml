@@ -18,4 +18,19 @@
     <result column="order_date" jdbcType="TIMESTAMP" property="orderDate" />
     <result column="flag" jdbcType="SMALLINT" property="flag" />
   </resultMap>
+  <select id="getPayable" resultType="DECIMAL">
+    select SUM(case when flag=2 then total_amount*(-1) else total_amount end ) from sys_in_order
+    <where>
+      <if test="startDate != null">
+        and `receipt_date` <![CDATA[ > ]]> #{startDate}
+      </if>
+      <if test="endDate != null">
+        and `receipt_date` <![CDATA[ <= ]]> #{endDate}
+      </if>
+      <if test="customerId != null">
+        and `customer_id` = #{customerId}
+      </if>
+      and id
+    </where>
+  </select>
 </mapper>

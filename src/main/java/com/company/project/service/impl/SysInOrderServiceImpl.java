@@ -1,17 +1,22 @@
 package com.company.project.service.impl;
 
+import com.company.project.core.AbstractService;
 import com.company.project.dao.SysInOrderDetailMapper;
 import com.company.project.dao.SysInOrderMapper;
 import com.company.project.model.SysInOrder;
 import com.company.project.model.SysInOrderDetail;
 import com.company.project.service.SysInOrderDetailService;
 import com.company.project.service.SysInOrderService;
-import com.company.project.core.AbstractService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -59,5 +64,28 @@ public class SysInOrderServiceImpl extends AbstractService<SysInOrder> implement
         Condition condition = new Condition(SysInOrderDetail.class);
         condition.createCriteria().andEqualTo("orderId",id);
         sysInOrderDetailMapper.deleteByCondition(condition);
+    }
+
+    @Override
+    public BigDecimal getPayable(String sd, String ed, Integer customerId) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        BigDecimal tl = new BigDecimal(0);
+        Date startDate = null;
+        Date endDate = null;
+        if (customerId < 0) {
+            customerId = null;
+        }
+        try {
+            if(StringUtils.isNotBlank(sd)){
+                startDate= format.parse(sd);
+            }
+            if(StringUtils.isNotBlank(ed)){
+                endDate = format.parse(ed);
+            }
+            tl = sysInOrderMapper.getPayable(startDate,endDate,customerId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return tl;
     }
 }
