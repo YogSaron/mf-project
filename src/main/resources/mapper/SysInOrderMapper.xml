@@ -30,7 +30,6 @@
       <if test="customerId != null">
         and `customer_id` = #{customerId}
       </if>
-      and id
     </where>
   </select>
 </mapper>

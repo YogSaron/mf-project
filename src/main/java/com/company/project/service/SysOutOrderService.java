@@ -6,6 +6,7 @@ import com.company.project.model.SysOutOrderDetail;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,4 +20,5 @@ public interface SysOutOrderService extends Service<SysOutOrder> {
 
     public BigDecimal getPayable(String startDate, String endDate,Integer customerId);
 //    public OrderBean getEntireOrder(Integer id);//根据id找到整个order
+    public Map sumTotalByMonth(Integer customerId, String targetYear);
 }

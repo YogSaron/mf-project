@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -87,5 +88,11 @@ public class SysOutOrderServiceImpl extends AbstractService<SysOutOrder> impleme
             e.printStackTrace();
         }
         return tl;
+    }
+
+    @Override
+    public Map sumTotalByMonth(Integer customerId, String targetYear) {
+        Map map = sysOutOrderMapper.sumByMonth(customerId,targetYear);
+        return map;
     }
 }

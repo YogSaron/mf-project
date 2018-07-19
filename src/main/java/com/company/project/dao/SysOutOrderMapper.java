@@ -6,9 +6,10 @@ import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 public interface SysOutOrderMapper extends Mapper<SysOutOrder> {
     public BigDecimal getPayable(@Param("startDate")Date startDate, @Param("endDate")Date endDate,@Param("customerId")Integer customerId);
 
-//    public Map sumByMonth()
+    public Map sumByMonth(@Param("customerId") Integer customerId,@Param("targetYear") String targetYear);
 }

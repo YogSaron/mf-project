@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by CodeGenerator on 2018/07/07.
@@ -156,5 +157,11 @@ public class SysOutOrderController {
     public Result getSum(String startDate,String endDate,Integer customerId) {
         BigDecimal bg = sysOutOrderService.getPayable(startDate,endDate,customerId);
         return ResultGenerator.genSuccessResult(bg);
+    }
+
+    @PostMapping("/sumByMonth")
+    public Result sumByMonth(Integer customerId,String targetYear) {
+        Map map = sysOutOrderService.sumTotalByMonth(customerId,targetYear);
+        return ResultGenerator.genSuccessResult(map);
     }
 }
