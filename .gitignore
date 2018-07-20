@@ -1,6 +1,6 @@
 target/
 */application-dev.properties
-local.properties
+ src/main/resources/application-dev.properties
 
 ### STS ###
 .apt_generated
