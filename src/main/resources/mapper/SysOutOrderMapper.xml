@@ -32,15 +32,15 @@
     </where>
   </select>
   <select id="sumByMonth" resultType="map">
-  SELECT t.mon,SUM(t.total_amount) FROM
-  (SELECT MONTH(delivery_date) as mon,total_amount,Year(delivery_date) as targetYear
- from sys_out_order
+  SELECT t.mon,SUM(t.total_amount) as totalAmount FROM
+  (SELECT MONTH(delivery_date) as mon,total_amount,YEAR(delivery_date) as targetYear
+    from sys_out_order
     <where>
       <if test="customerId != null">
-        customerId = #{customerId}
+        customer_id = #{customerId}
       </if>
     </where>
-    ) as t
+  ) as t
     where t.targetYear = #{targetYear}
     GROUP BY t.mon
   </select>

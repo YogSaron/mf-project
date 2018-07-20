@@ -14,5 +14,4 @@
     <result column="password" jdbcType="VARBINARY" property="password" />
     <result column="salt" jdbcType="VARBINARY" property="salt" />
   </resultMap>
-
 </mapper>

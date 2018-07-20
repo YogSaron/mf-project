@@ -91,8 +91,8 @@ public class SysOutOrderServiceImpl extends AbstractService<SysOutOrder> impleme
     }
 
     @Override
-    public Map sumTotalByMonth(Integer customerId, String targetYear) {
-        Map map = sysOutOrderMapper.sumByMonth(customerId,targetYear);
-        return map;
+    public List<Map> sumTotalByMonth(Integer customerId, String targetYear) {
+        List<Map> list = sysOutOrderMapper.sumByMonth(customerId,targetYear);
+        return list;
     }
 }

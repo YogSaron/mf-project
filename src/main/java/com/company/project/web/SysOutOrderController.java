@@ -161,7 +161,7 @@ public class SysOutOrderController {
 
     @PostMapping("/sumByMonth")
     public Result sumByMonth(Integer customerId,String targetYear) {
-        Map map = sysOutOrderService.sumTotalByMonth(customerId,targetYear);
-        return ResultGenerator.genSuccessResult(map);
+        List<Map> list = sysOutOrderService.sumTotalByMonth(customerId,targetYear);
+        return ResultGenerator.genSuccessResult(list);
     }
 }
