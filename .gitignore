@@ -1,5 +1,7 @@
 target/
 */application-dev.properties
+local.properties
+
 ### STS ###
 .apt_generated
 .classpath
