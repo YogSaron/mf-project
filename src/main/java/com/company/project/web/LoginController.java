@@ -8,10 +8,7 @@ import com.company.project.service.SysUserService;
 import com.company.project.utils.beans.LoginBean;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -50,5 +47,17 @@ public class LoginController {
         loginBean.setUsername(sysUser.getUsername());
         loginBean.setToken(token);
         return ResultGenerator.genSuccessResult(loginBean);
+    }
+
+    @GetMapping("/info")
+    public Result getInfo(String token){
+        SysUser sysUser = UserLoginCache.getUser(token);
+        return ResultGenerator.genSuccessResult(sysUser);
+    }
+
+    @PostMapping("/logout")
+    public Result logout(String token) {
+        UserLoginCache.remove(token);
+        return ResultGenerator.genSuccessResult();
     }
 }

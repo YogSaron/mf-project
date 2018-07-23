@@ -13,4 +13,6 @@ public interface SysOutOrderMapper extends Mapper<SysOutOrder> {
     public BigDecimal getPayable(@Param("startDate")Date startDate, @Param("endDate")Date endDate,@Param("customerId")Integer customerId);
 
     public List<Map> sumByMonth(@Param("customerId") Integer customerId, @Param("targetYear") String targetYear);
+
+    public List<Map> getAmounInfo(@Param("year") String year);
 }

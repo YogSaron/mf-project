@@ -95,4 +95,10 @@ public class SysOutOrderServiceImpl extends AbstractService<SysOutOrder> impleme
         List<Map> list = sysOutOrderMapper.sumByMonth(customerId,targetYear);
         return list;
     }
+
+    @Override
+    public List<Map> getAmounInfo(String year) {
+        List<Map> map = sysOutOrderMapper.getAmounInfo(year);
+        return map;
+    }
 }

@@ -164,4 +164,10 @@ public class SysOutOrderController {
         List<Map> list = sysOutOrderService.sumTotalByMonth(customerId,targetYear);
         return ResultGenerator.genSuccessResult(list);
     }
+
+    @PostMapping("/amountInfo")
+    public Result getAmountInfo(@RequestParam String year){
+        List<Map> map = sysOutOrderService.getAmounInfo(year);
+        return ResultGenerator.genSuccessResult(map);
+    }
 }

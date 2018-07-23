@@ -21,14 +21,14 @@ public class ParamInterceptor implements HandlerInterceptor{
 
         if ( StringUtils.isEmpty(token) ) {
 //            ResultGenerator.genOutResult("token过期");
-            httpServletResponse.getWriter().print(ResultGenerator.genSuccessResult("token过期"));
+            httpServletResponse.getWriter().print(ResultGenerator.genOutResult("token过期"));
             return false;
         }
 
         SysUser sysUser = UserLoginCache.getUser(token);
 
         if (sysUser==null) {
-            httpServletResponse.getWriter().print(ResultGenerator.genSuccessResult("用户过期"));
+            httpServletResponse.getWriter().print(ResultGenerator.genOutResult("用户过期"));
             return false;
         }
 
