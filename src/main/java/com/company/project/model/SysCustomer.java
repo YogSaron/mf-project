@@ -20,6 +20,8 @@ public class SysCustomer {
     private Date createTime;
 
     private String mobile;
+
+    private String tel;
     /**
      * @return id
      */
@@ -96,5 +98,13 @@ public class SysCustomer {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 }

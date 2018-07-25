@@ -11,5 +11,6 @@
     <result column="type" jdbcType="SMALLINT" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
   </resultMap>
 </mapper>

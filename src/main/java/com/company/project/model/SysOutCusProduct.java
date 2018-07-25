@@ -22,6 +22,8 @@ public class SysOutCusProduct {
 
     @Column(name = "material_type")
     private String materialType;
+
+    private Integer type;
     /**
      * @return id
      */
@@ -98,5 +100,13 @@ public class SysOutCusProduct {
 
     public void setMaterialType(String materialType) {
         this.materialType = materialType;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

@@ -23,6 +23,12 @@ public class SysOutCusProductController {
 
     @PostMapping("/add")
     public Result add(SysOutCusProduct sysOutCusProduct) {
+        if("2".equals(sysOutCusProduct.getType())) {
+            sysOutCusProduct.setParentId(null);
+            sysOutCusProduct.setMaterialType(null);
+            sysOutCusProduct.setUnitPrice(null);
+            sysOutCusProduct.setPackaging(null);
+        }
         sysOutCusProductService.save(sysOutCusProduct);
         return ResultGenerator.genSuccessResult();
     }
@@ -46,9 +52,11 @@ public class SysOutCusProductController {
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @RequestParam Integer type) {
         PageHelper.startPage(page, size);
-        List<SysOutCusProduct> list = sysOutCusProductService.findAll();
+        Condition condition = new Condition(SysOutCusProduct.class);
+        condition.createCriteria().andEqualTo("type",type);
+        List<SysOutCusProduct> list = sysOutCusProductService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
