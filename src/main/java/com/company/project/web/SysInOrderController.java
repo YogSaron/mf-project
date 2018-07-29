@@ -7,6 +7,7 @@ import com.company.project.model.SysInOrder;
 import com.company.project.model.SysInOrderDetail;
 import com.company.project.service.SysInOrderDetailService;
 import com.company.project.service.SysInOrderService;
+import com.company.project.utils.beans.InOrderList;
 import com.company.project.utils.beans.OrderBean;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -159,5 +160,24 @@ public class SysInOrderController {
         sysInOrder.setOrderDate(new Timestamp(new Date().getTime()));
         sysInOrderService.save(sysInOrder);
         return ResultGenerator.genSuccessResult();
+    }
+
+    @PostMapping("/getEntireList")
+    public Result getList(String startDate,String endDate,Integer customerId) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date sd = null;
+        Date ed = null;
+        try {
+            if(StringUtils.isNotBlank(startDate)){
+                sd = format.parse(startDate);
+            }
+            if(StringUtils.isNotBlank(startDate)){
+                ed = format.parse(endDate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<InOrderList> list = sysInOrderService.getEntireList(sd,ed,customerId);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

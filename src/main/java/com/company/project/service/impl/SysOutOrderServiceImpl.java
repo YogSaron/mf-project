@@ -7,6 +7,7 @@ import com.company.project.model.SysOutOrder;
 import com.company.project.model.SysOutOrderDetail;
 import com.company.project.service.SysOutOrderDetailService;
 import com.company.project.service.SysOutOrderService;
+import com.company.project.utils.beans.OrderList;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,5 +101,11 @@ public class SysOutOrderServiceImpl extends AbstractService<SysOutOrder> impleme
     public List<Map> getAmounInfo(String year) {
         List<Map> map = sysOutOrderMapper.getAmounInfo(year);
         return map;
+    }
+
+    @Override
+    public List<OrderList> getEntireList(Date startDate, Date endDate, Integer customerId) {
+        List<OrderList> list = sysOutOrderMapper.getEntireList(startDate, endDate, customerId);
+        return list;
     }
 }

@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -52,10 +53,14 @@ public class SysOutCusProductController {
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @RequestParam Integer type) {
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @RequestParam Integer type,Integer parentId) {
         PageHelper.startPage(page, size);
         Condition condition = new Condition(SysOutCusProduct.class);
-        condition.createCriteria().andEqualTo("type",type);
+        Example.Criteria criteria = condition.createCriteria();
+        criteria.andEqualTo("type",type);
+        if(parentId != null) {
+            criteria.andEqualTo("parentId", parentId);
+        }
         List<SysOutCusProduct> list = sysOutCusProductService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);

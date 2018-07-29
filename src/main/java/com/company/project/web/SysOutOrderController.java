@@ -8,6 +8,7 @@ import com.company.project.model.SysOutOrderDetail;
 import com.company.project.service.SysOutOrderDetailService;
 import com.company.project.service.SysOutOrderService;
 import com.company.project.utils.beans.OrderBean;
+import com.company.project.utils.beans.OrderList;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -169,5 +170,24 @@ public class SysOutOrderController {
     public Result getAmountInfo(@RequestParam String year){
         List<Map> map = sysOutOrderService.getAmounInfo(year);
         return ResultGenerator.genSuccessResult(map);
+    }
+
+    @PostMapping("/getEntireList")
+    public Result getList(String startDate,String endDate,Integer customerId) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date sd = null;
+        Date ed = null;
+        try {
+            if(StringUtils.isNotBlank(startDate)){
+                sd = format.parse(startDate);
+            }
+            if(StringUtils.isNotBlank(startDate)){
+                ed = format.parse(endDate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<OrderList> list = sysOutOrderService.getEntireList(sd,ed,customerId);
+        return ResultGenerator.genSuccessResult(list);
     }
 }

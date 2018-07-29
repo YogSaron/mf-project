@@ -50,6 +50,9 @@ public class SysUserController {
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<SysUser> list = sysUserService.findAll();
+        for(SysUser sysUser : list) {
+
+        }
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

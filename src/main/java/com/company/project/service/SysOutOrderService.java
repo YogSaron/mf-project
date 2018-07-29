@@ -3,8 +3,10 @@ package com.company.project.service;
 import com.company.project.core.Service;
 import com.company.project.model.SysOutOrder;
 import com.company.project.model.SysOutOrderDetail;
+import com.company.project.utils.beans.OrderList;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,4 +25,6 @@ public interface SysOutOrderService extends Service<SysOutOrder> {
     public List<Map> sumTotalByMonth(Integer customerId, String targetYear);
 
     public List<Map> getAmounInfo(String year);
+
+    public List<OrderList> getEntireList(Date startDate, Date endDate, Integer customerId);
 }

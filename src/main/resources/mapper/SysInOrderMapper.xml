@@ -18,6 +18,18 @@
     <result column="order_date" jdbcType="TIMESTAMP" property="orderDate" />
     <result column="flag" jdbcType="SMALLINT" property="flag" />
   </resultMap>
+  <resultMap id="orderList" type="com.company.project.utils.beans.InOrderList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="receipt_date" jdbcType="TIMESTAMP" property="receiptDate" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="material_type" jdbcType="VARCHAR" property="materialType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="quantity" jdbcType="VARCHAR" property="quantity" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="aggregate" jdbcType="DECIMAL" property="aggregate" />
+  </resultMap>
   <select id="getPayable" resultType="DECIMAL">
     select SUM(case when flag=2 then total_amount*(-1) else total_amount end ) from sys_in_order
     <where>
@@ -29,6 +41,21 @@
       </if>
       <if test="customerId != null">
         and `customer_id` = #{customerId}
+      </if>
+    </where>
+  </select>
+  <select id="getEntireList" resultMap="orderList">
+    select * from sys_in_order s LEFT JOIN sys_in_order_detail d on s.id = d.order_id
+    <where>
+      s.flag=1
+      <if test="customerId != null">
+        and s.customer_id = #{customerId}
+      </if>
+      <if test="startDate != null">
+        and s.receipt_date <![CDATA[ > ]]> #{startDate}
+      </if>
+      <if test="endDate != null">
+        and s.receipt_date <![CDATA[ <= ]]> #{endDate}
       </if>
     </where>
   </select>

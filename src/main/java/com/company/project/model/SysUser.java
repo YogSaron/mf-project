@@ -1,7 +1,11 @@
 package com.company.project.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_user")
 public class SysUser {
@@ -18,6 +22,7 @@ public class SysUser {
     private Short status;
 
     @Column(name = "create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     private byte[] password;

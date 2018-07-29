@@ -7,6 +7,8 @@ import com.company.project.model.SysInOrder;
 import com.company.project.model.SysInOrderDetail;
 import com.company.project.service.SysInOrderDetailService;
 import com.company.project.service.SysInOrderService;
+import com.company.project.utils.beans.InOrderList;
+import com.company.project.utils.beans.OrderList;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,5 +89,11 @@ public class SysInOrderServiceImpl extends AbstractService<SysInOrder> implement
             e.printStackTrace();
         }
         return tl;
+    }
+
+    @Override
+    public List<InOrderList> getEntireList(Date startDate, Date endDate, Integer customerId) {
+        List<InOrderList> list = sysInOrderMapper.getEntireList(startDate, endDate, customerId);
+        return list;
     }
 }
